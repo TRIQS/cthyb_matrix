@@ -10,7 +10,7 @@ include_directories( ${TRIQS_INCLUDE_ALL} ${CMAKE_CURRENT_SOURCE_DIR}/../ )
 execute_process(COMMAND ln -fs ${CMAKE_CURRENT_BINARY_DIR}/ctqmc_hyb_matrix.so ${CMAKE_BINARY_DIR})
 
 # Install 
-SET(PYTHON_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/__init__.py )
+SET(PYTHON_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/__init__.py ${CMAKE_CURRENT_SOURCE_DIR}/old_solver.py ${CMAKE_CURRENT_SOURCE_DIR}/models.py )
 install (FILES ${PYTHON_SOURCES} DESTINATION ${TRIQS_PYTHON_LIB_DEST}/applications/impurity_solvers/ctqmc_hyb_matrix)
 
 #make sure that the __init__.py empty files are present ...

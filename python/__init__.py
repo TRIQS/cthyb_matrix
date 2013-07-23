@@ -23,7 +23,8 @@ r"""
 DOC
 
 """
-from ctqmc_solver import Solver
+from ctqmc_hyb_matrix import Solver
+#from ctqmc_solver import Solver
 from old_solver import SolverOld
 
 __all__ = ['Solver','SolverOld']

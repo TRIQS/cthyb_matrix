@@ -1,6 +1,7 @@
 import pytriqs.utility.mpi as mpi
 import copy
-from ctqmc_solver import Solver
+#from ctqmc_solver import Solver
+from ctqmc_hyb_matrix import Solver
 
 class SolverOld(Solver):
 
