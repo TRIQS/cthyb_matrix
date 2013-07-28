@@ -42,11 +42,11 @@
 #include "measure_legendre.hpp"
 #include "measure_correlator.hpp"
 
-using triqs::gf::gf;
-using triqs::gf::gf_view;
-using triqs::gf::block_index;
-using triqs::gf::imtime;
-using triqs::gf::legendre;
+using triqs::gfs::gf;
+using triqs::gfs::gf_view;
+using triqs::gfs::block_index;
+using triqs::gfs::imtime;
+using triqs::gfs::legendre;
 
 using namespace std;
 using namespace boost;
@@ -67,9 +67,9 @@ namespace triqs { namespace app { namespace impurity_solvers {
 //-----------------------------------------------------
 
 ctqmc_hyb::ctqmc_hyb(boost::python::object p, Hloc * hloc,
-                     gf_view<block_index,triqs::gf::gf<imtime>> gt, gf_view<block_index,triqs::gf::gf<imtime>> ft,
-                     gf_view<block_index,triqs::gf::gf<imtime>> dt, gf_view<block_index,triqs::gf::gf<imtime>> opcorr,
-                     gf_view<block_index,triqs::gf::gf<legendre>> gl) :
+                     gf_view<block_index,triqs::gfs::gf<imtime>> gt, gf_view<block_index,triqs::gfs::gf<imtime>> ft,
+                     gf_view<block_index,triqs::gfs::gf<imtime>> dt, gf_view<block_index,triqs::gfs::gf<imtime>> opcorr,
+                     gf_view<block_index,triqs::gfs::gf<legendre>> gl) :
  params(p),
  G_tau(gt), F_tau(ft), Delta_tau(dt), OpCorrToAverage(opcorr), G_legendre(gl),
  Config(params, hloc, Delta_tau),

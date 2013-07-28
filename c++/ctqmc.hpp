@@ -24,10 +24,10 @@
 #define MC_H_hewjfhwke
 
 #include <Python.h>
-#include <triqs/gf/block.hpp>
-#include <triqs/gf/imtime.hpp>
-#include <triqs/gf/legendre.hpp>
-#include <triqs/gf/imfreq.hpp>
+#include <triqs/gfs/block.hpp>
+#include <triqs/gfs/imtime.hpp>
+#include <triqs/gfs/legendre.hpp>
+#include <triqs/gfs/imfreq.hpp>
 #include <triqs/mc_tools/mc_generic.hpp>
 #include <triqs/mc_tools/histograms.hpp>
 #include <map>
@@ -46,8 +46,8 @@ protected:
 
   triqs::python_tools::improved_python_dict params;
   triqs::mc_tools::HistogramBinnedMap Histograms; 
-  triqs::gf::gf_view<triqs::gf::block_index,triqs::gf::gf<triqs::gf::imtime>> G_tau, F_tau, Delta_tau, OpCorrToAverage;
-  triqs::gf::gf_view<triqs::gf::block_index,triqs::gf::gf<triqs::gf::legendre>> G_legendre;
+  triqs::gfs::gf_view<triqs::gfs::block_index,triqs::gfs::gf<triqs::gfs::imtime>> G_tau, F_tau, Delta_tau, OpCorrToAverage;
+  triqs::gfs::gf_view<triqs::gfs::block_index,triqs::gfs::gf<triqs::gfs::legendre>> G_legendre;
   Configuration Config;
   const bool TimeAccumulation;
   const bool LegendreAccumulation;
@@ -56,11 +56,11 @@ protected:
 public : 
 
   ctqmc_hyb(boost::python::object, Hloc *,
-            triqs::gf::gf_view<triqs::gf::block_index,triqs::gf::gf<triqs::gf::imtime>>,
-            triqs::gf::gf_view<triqs::gf::block_index,triqs::gf::gf<triqs::gf::imtime>>,
-            triqs::gf::gf_view<triqs::gf::block_index,triqs::gf::gf<triqs::gf::imtime>>,
-            triqs::gf::gf_view<triqs::gf::block_index,triqs::gf::gf<triqs::gf::imtime>>,
-            triqs::gf::gf_view<triqs::gf::block_index,triqs::gf::gf<triqs::gf::legendre>>);
+            triqs::gfs::gf_view<triqs::gfs::block_index,triqs::gfs::gf<triqs::gfs::imtime>>,
+            triqs::gfs::gf_view<triqs::gfs::block_index,triqs::gfs::gf<triqs::gfs::imtime>>,
+            triqs::gfs::gf_view<triqs::gfs::block_index,triqs::gfs::gf<triqs::gfs::imtime>>,
+            triqs::gfs::gf_view<triqs::gfs::block_index,triqs::gfs::gf<triqs::gfs::imtime>>,
+            triqs::gfs::gf_view<triqs::gfs::block_index,triqs::gfs::gf<triqs::gfs::legendre>>);
   void solve();
 
 };

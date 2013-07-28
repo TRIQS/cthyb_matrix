@@ -691,7 +691,7 @@ double Hloc::PartitionFunction(double Beta) const {
 // ********************************************************************
 
 
-void Hloc::LocalGreenFunction(const Operator & Op1, const Operator & Op2, triqs::gf::gf_view<triqs::gf::imfreq> & G) const {
+void Hloc::LocalGreenFunction(const Operator & Op1, const Operator & Op2, triqs::gfs::gf_view<triqs::gfs::imfreq> & G) const {
   
   const double Beta(G.domain().beta);
 

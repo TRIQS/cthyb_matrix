@@ -28,7 +28,7 @@
 #include <triqs/arrays.hpp>
 #include <triqs/arrays/linalg/det_and_inverse.hpp>
 #include <triqs/arrays/linalg/eigenelements.hpp>
-#include <triqs/gf/imfreq.hpp>
+#include <triqs/gfs/imfreq.hpp>
 #include "small_matrix.hpp"
 #include "ctqmc_utils.hpp"
 
@@ -246,7 +246,7 @@ public:
   int MaxOp_DimAllMatrixElements() const;
   
   /// Returns the local Green function
-  void LocalGreenFunction(const Operator & OP1, const Operator & Op2, triqs::gf::gf_view<triqs::gf::imfreq> & G) const;
+  void LocalGreenFunction(const Operator & OP1, const Operator & Op2, triqs::gfs::gf_view<triqs::gfs::imfreq> & G) const;
 
   /// Compute the paritition function at inverse temperature beta
   double PartitionFunction(double Beta) const; 

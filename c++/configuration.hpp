@@ -23,8 +23,8 @@
 #define CONFIGURATION_H_37j3hrf
 
 #include "improved_python_dict.hpp"
-#include <triqs/gf/block.hpp>
-#include <triqs/gf/imtime.hpp>
+#include <triqs/gfs/block.hpp>
+#include <triqs/gfs/imtime.hpp>
 #include "dynamic_trace.hpp"
 #include <triqs/mc_tools/mc_generic.hpp>
 #include <map>
@@ -56,10 +56,10 @@ struct Configuration {
  struct Delta_Proxy { 
   typedef double result_type;
   typedef OP_REF argument_type;
-  const triqs::gf::gf_view<triqs::gf::imtime> & Delta;
-  gf_grid_evaluator<triqs::gf::gf_view<triqs::gf::imtime>> Delta_eval; 
+  const triqs::gfs::gf_view<triqs::gfs::imtime> & Delta;
+  gf_grid_evaluator<triqs::gfs::gf_view<triqs::gfs::imtime>> Delta_eval; 
   const std::vector<BlockInfo> & info;
-  Delta_Proxy (const triqs::gf::gf_view<triqs::gf::imtime> & Delta_, const std::vector<BlockInfo> & info_ ):
+  Delta_Proxy (const triqs::gfs::gf_view<triqs::gfs::imtime> & Delta_, const std::vector<BlockInfo> & info_ ):
    Delta(Delta_),Delta_eval(Delta_), 
    info(info_) { }
   Delta_Proxy (Delta_Proxy const & ) = default;
@@ -91,7 +91,7 @@ struct Configuration {
  std::map<std::string, O_Odag_Insertions_type > O1_K_O2_Insertions; 
 
  ///
- Configuration(triqs::python_tools::improved_python_dict params, Hloc * hloc, triqs::gf::gf_view<triqs::gf::block_index,triqs::gf::gf<triqs::gf::imtime>> &);
+ Configuration(triqs::python_tools::improved_python_dict params, Hloc * hloc, triqs::gfs::gf_view<triqs::gfs::block_index,triqs::gfs::gf<triqs::gfs::imtime>> &);
 
  /// 
  // Configuration (const Configuration & C);
@@ -105,7 +105,7 @@ struct Configuration {
  /// puts back the time in [0,Beta]
  inline double CyclicOrientedTimeDistance(double x){ double r= fmod(x,Beta); return (r >=0 ? r : r+ Beta);}
 
- triqs::gf::gf_view<triqs::gf::block_index, triqs::gf::gf<triqs::gf::imtime>> Delta_tau;
+ triqs::gfs::gf_view<triqs::gfs::block_index, triqs::gfs::gf<triqs::gfs::imtime>> Delta_tau;
  const Hloc & H;
  const double Beta;
  DYNAMIC_TRACE DT;

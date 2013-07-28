@@ -23,7 +23,7 @@
 #ifndef TRIQS_CTHYB1_MEASURES_OpCorr_H
 #define TRIQS_CTHYB1_MEASURES_OpCorr_H
 
-#include <triqs/gf/imtime.hpp>
+#include <triqs/gfs/imtime.hpp>
 #include "measure_z.hpp"
 #include "configuration.hpp"
 #include "gf_binner.hpp"
@@ -36,11 +36,11 @@ class Measure_OpCorr : public Measure_acc_sign<double> {
   Configuration & Config;
   const int N_timeslices;
   const double deltatau;
-  triqs::gf::gf_view<triqs::gf::imtime> Op_res;
-  gf_binner<triqs::gf::gf_view<triqs::gf::imtime>> Op_res_bin;
+  triqs::gfs::gf_view<triqs::gfs::imtime> Op_res;
+  gf_binner<triqs::gfs::gf_view<triqs::gfs::imtime>> Op_res_bin;
   typedef Measure_acc_sign<double> BaseType;
 public :   
-  Measure_OpCorr(std::string MeasureName_, std::string opName_, Configuration & Config_, triqs::gf::gf_view<triqs::gf::imtime> &Op_res_, int N_timeslices_):
+  Measure_OpCorr(std::string MeasureName_, std::string opName_, Configuration & Config_, triqs::gfs::gf_view<triqs::gfs::imtime> &Op_res_, int N_timeslices_):
     BaseType(),  opName(opName_), Config(Config_),  N_timeslices(N_timeslices_),deltatau(Config.Beta/N_timeslices_),Op_res(Op_res_),Op_res_bin(Op_res), 
      name(opName)  {}
  
@@ -54,7 +54,7 @@ public :
 
    auto res = triqs::make_clone(Op_res);
    auto g_loc = triqs::make_clone(Op_res);
-   boost::mpi::reduce(c, g_loc, res, std::plus<triqs::gf::gf<triqs::gf::imtime>>(),0);
+   boost::mpi::reduce(c, g_loc, res, std::plus<triqs::gfs::gf<triqs::gfs::imtime>>(),0);
    boost::mpi::broadcast(c,res,0);
    Op_res = res / (Z_qmc * deltatau);
 

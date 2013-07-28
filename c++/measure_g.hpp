@@ -23,7 +23,7 @@
 #ifndef TRIQS_CTHYB1_MEASURES_G_H
 #define TRIQS_CTHYB1_MEASURES_G_H
 
-#include <triqs/gf/imtime.hpp>
+#include <triqs/gfs/imtime.hpp>
 #include "configuration.hpp"
 #include "measure_z.hpp"
 #include "gf_binner.hpp"
@@ -35,12 +35,12 @@ class Measure_G_tau : public Measure_acc_sign<std::complex<double>> {
   typedef Measure_acc_sign<std::complex<double>> BaseType;
   const std::string name;  
   const Configuration & Config;
-  triqs::gf::gf_view<triqs::gf::imtime> & G_tau;
-  gf_binner<triqs::gf::gf_view<triqs::gf::imtime>> G_tau_bin;
+  triqs::gfs::gf_view<triqs::gfs::imtime> & G_tau;
+  gf_binner<triqs::gfs::gf_view<triqs::gfs::imtime>> G_tau_bin;
   const int a_level;
  public :   
 
-  Measure_G_tau(const Configuration & Config_,int a, triqs::gf::gf_view<triqs::gf::imtime> & Gtau_):
+  Measure_G_tau(const Configuration & Config_,int a, triqs::gfs::gf_view<triqs::gfs::imtime> & Gtau_):
    BaseType(), name(to_string("G(tau)",a)), Config(Config_), G_tau(Gtau_), G_tau_bin(G_tau), a_level(a) { }
 
   void accumulate(std::complex<double> signe)  { 
@@ -59,7 +59,7 @@ class Measure_G_tau : public Measure_acc_sign<std::complex<double>> {
 
    auto res = triqs::make_clone(G_tau);
    auto loc_g = triqs::make_clone(G_tau);
-   boost::mpi::reduce(c, loc_g, res, std::plus<triqs::gf::gf<triqs::gf::imtime>>(),0);
+   boost::mpi::reduce(c, loc_g, res, std::plus<triqs::gfs::gf<triqs::gfs::imtime>>(),0);
    boost::mpi::broadcast(c,res,0);
    G_tau = res / (- real(Z_qmc) * Config.Beta * G_tau.mesh().delta());
 

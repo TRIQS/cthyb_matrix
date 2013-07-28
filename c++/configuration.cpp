@@ -26,10 +26,10 @@
 using namespace std;
 using namespace boost;
 using namespace ctqmc_utils;
-using triqs::gf::gf;
-using triqs::gf::gf_view;
-using triqs::gf::block_index;
-using triqs::gf::imtime;
+using triqs::gfs::gf;
+using triqs::gfs::gf_view;
+using triqs::gfs::block_index;
+using triqs::gfs::imtime;
 
 Configuration::Configuration(triqs::python_tools::improved_python_dict params, Hloc * hloc, gf_view<block_index,gf<imtime>> & dt):
   Delta_tau(dt),
