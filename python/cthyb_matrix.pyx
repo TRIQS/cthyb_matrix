@@ -3,7 +3,6 @@ from pytriqs.gf.local.gf cimport *
 from types import *
 from pytriqs.gf.local import *
 from pytriqs.gf.local.descriptors import A_Omega_Plus_B
-#from pytriqs.applications.impurity_solvers.operators import *
 from pytriqs.operators import *
 import pytriqs.utility.mpi as mpi
 import numpy
@@ -96,7 +95,7 @@ class Solver:
         # Check that all indices of the Green's Function do correspond to a C operator
         for a,alpha_list in self.gf_struct :
           for alpha in alpha_list :
-            if (a,alpha) not in operators.C_list_names() :
+            if (a,alpha) not in C_list_names() :
               print (a,alpha)
               raise "Error : Some indices (%s,%s) of the Green function do not correspond to existing operator"%(a,alpha)
 
@@ -133,7 +132,7 @@ class Solver:
             OPdict[name]=op
 
         # Complete the OPdict with the fundamental operators
-        OPdict, nf, nb, SymChar, NameOpFundamentalList = operators.complete_op_list_with_fundamentals(OPdict)
+        OPdict, nf, nb, SymChar, NameOpFundamentalList = complete_op_list_with_fundamentals(OPdict)
 
         # Add the operators to be averaged in OPdict and prepare the list for the C-code
         self.measured_operators_results = {}
@@ -226,7 +225,7 @@ class Solver:
         for n,op in OPdict.items(): op.make_coef_real_and_check()
 
         # Transcription of operators for C++
-        Oplist2 = operators.transcribe_op_list_for_C(OPdict)
+        Oplist2 = transcribe_op_list_for_C(OPdict)
         SymList = [sym for (n,sym) in SymChar.items() if n in QuantumNumberSymmetries]
 
         # Create the C_Cag_Ops array which describes the grouping of (C,Cdagger) operator

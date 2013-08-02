@@ -34,8 +34,7 @@ Chemical_Potential = U/2.0
 beta = 100
 
 # Construct a CTQMC solver
-from ctqmc_hyb_matrix import Solver
-#from pytriqs.applications.impurity_solvers.ctqmc_hyb import Solver
+from pytriqs.applications.impurity_solvers.cthyb_matrix import Solver
 S = Solver(beta = beta, gf_struct = [ ('up',[1]), ('down',[1]) ])
 
 # init the Green function

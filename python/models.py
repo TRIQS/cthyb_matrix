@@ -24,9 +24,7 @@ from math import *
 import numpy
 from pytriqs.gf.local import BlockGf
 from pytriqs.operators import *
-from ctqmc_hyb_matrix import Solver
-#from pytriqs.applications.impurity_solvers.operators import *
-#from pytriqs.applications.impurity_solvers.ctqmc_hyb import Solver
+from cthyb_matrix import Solver
 
 def sum_list(L):
     """ Can sum any list"""

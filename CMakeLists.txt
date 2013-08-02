@@ -3,7 +3,7 @@ list(APPEND CMAKE_MODULE_PATH ${TRIQS_PATH}/share/triqs/cmake)
 
 # start configuration 
 cmake_minimum_required(VERSION 2.8)
-project(ctseg CXX)
+project(cthyb_matrix CXX)
 set(CMAKE_BUILD_TYPE Release)
 enable_testing()
 
@@ -12,6 +12,9 @@ option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
 # Load TRIQS, including all predefined variables from TRIQS installation
 find_package(TRIQS REQUIRED)
+
+# Set correct options for RPATH
+triqs_set_rpath_options()
 
 # We want to be installed in the TRIQS tree
 set(CMAKE_INSTALL_PREFIX ${TRIQS_PATH})
@@ -22,11 +25,9 @@ add_subdirectory(c++)
 # Python interface
 if (${TRIQS_WITH_PYTHON_SUPPORT})
  add_subdirectory(python)
+ add_subdirectory(test)
+ option(BUILD_DOC "Build documentation" OFF)
+ if(${BUILD_DOC})
+   add_subdirectory(doc)
+ endif(${BUILD_DOC})
 endif()
-
-# Link the pytriqs for convenience ?? 
-execute_process(COMMAND ln -fs ${TRIQS_PATH}/bin .)
-
-# tests
-add_subdirectory(test)
-

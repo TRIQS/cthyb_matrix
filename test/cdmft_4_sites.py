@@ -39,8 +39,7 @@ Field_AF, Field_F = 0.0, 0.0
 #
 #  Solver
 #
-#from pytriqs.applications.impurity_solvers.ctqmc_hyb.models import Solver2By2
-from models import Solver2By2
+from pytriqs.applications.impurity_solvers.cthyb_matrix.models import Solver2By2
 S = Solver2By2(beta = Beta, U_interact = 4.0)
 # I can change some parameter in the S. namespace, overruling the defaults
 # I could even change them from iteration to iteration in the loop below.
