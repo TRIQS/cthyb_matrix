@@ -14,7 +14,8 @@ option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 find_package(TRIQS REQUIRED)
 
 # Set correct options for RPATH
-triqs_set_rpath_options()
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
 # We want to be installed in the TRIQS tree
 set(CMAKE_INSTALL_PREFIX ${TRIQS_PATH})
