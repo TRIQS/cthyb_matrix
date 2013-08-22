@@ -1,14 +1,12 @@
 .. index:: Quantum impurity solvers & DMFT
 
-.. module:: pytriqs.applications.impurity_solvers
+.. module:: pytriqs.applications.impurity_solvers.cthyb_matrix
 
-.. _solvers:
+The hybridization-expansion matrix solver
+=========================================
 
-Quantum impurity solvers
-========================
-
-TRIQS has a set of extension modules that allow to solve the generic problem of
-a quantum "impurity" embedded in a conduction bath. The "impurity" can be any
+The hybridization-expansion matrix solver allows to solve the generic problem
+of a quantum impurity embedded in a conduction bath. The "impurity" can be any
 set of orbitals, on one or several atoms. To be more specific, the Hamiltonian
 of the problem has the form:
 
@@ -36,16 +34,23 @@ so that the non-interacting Green's function of the impurity is:
 
 With the knowledge of :math:`G_0` and the matrix :math:`U_{1234}`, the quantum
 impurity solvers find the interacting Green's function :math:`G` of the
-problem. TRIQS has two such solvers available and they are described below.
-Both these solvers have a similar concept, so that it is very simple to switch
-from one solver to the other in an input file. This generic concept is
-described below as well.
+problem.
+
+In the following, we start by briefly describing how the algorithm in the solver
+works. We then illustrate how to use the solver with the example of an Anderson
+impurity problem. Then we show a concrete DMFT calculation. The last
+sections give a technical description of the class, discuss how to chose
+parameters and use different random number generators.
+
 
 .. toctree::
    :maxdepth: 1
 
-   cthyb_matrix
-   hubbardI
+   algorithm
+   aim
+   dmft
+   reference
+   settingparameters
    concept
-   dmft/dmft
-   ipt/ipt
+   random
+
