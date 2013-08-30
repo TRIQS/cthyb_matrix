@@ -1,7 +1,6 @@
-:orphan:
 
-Reporting bugs
-==============
+Reporting issues
+================
 
 Please report all problems and bugs directly at the github issue page
 `<https://github.com/TRIQS/cthyb_matrix/issues>`_.  In order to make it easier

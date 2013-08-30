@@ -18,15 +18,12 @@ mathjax_path = "@TRIQS_MATHJAX_PATH@/MathJax.js?config=default"
 html_theme = 'triqs'
 html_theme_path = ['@TRIQS_THEMES_PATH@']
 html_show_sphinx = False
+html_context = {'header_title': 'cthyb',
+                'header_subtitle': 'a quantum impurity solver based on the <a class="triqs" style="font-size: 12px" href="http://ipht.cea.fr/triqs">TRIQS</a> library',
+                'header_links': [['Install', 'install'],
+                                 ['Documentation', 'documentation'],
+                                 ['Issues', 'issues'],
+                                 ['About CTHYB', 'about']]}
+
 
 htmlhelp_basename = 'TRIQSHybMatrixdoc'
-
-latex_documents = [('contents', 'TRIQS.tex', u'TRIQS Hybridization Expansion Matrix Solver Documentation',
-                    u'M. Ferrero, O.Parcollet', 'manual', 1)]
-
-man_pages = [('contents', 'triqs', u'TRIQS Hybridization Expansion Matrix Solver Documentation', u'M. Ferrero, O. Parcollet', 1)]
-
-texinfo_documents = [
-  ('contents', 'TRIQS', u'TRIQS Hybridization Expansion Matrix Solver Documentation',
-   u'MF OP', 'TRIQS', 'One line description of project', 'Miscellaneous'), ]
-
