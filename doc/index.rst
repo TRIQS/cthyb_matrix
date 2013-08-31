@@ -2,7 +2,7 @@
 The hybridization-expansion matrix solver
 =========================================
 
-The hybridization-expansion matrix solver allows to solve the generic problem
+The :ref:`TRIQS-based <triqslibs:welcome>` hybridization-expansion matrix solver allows to solve the generic problem
 of a quantum impurity embedded in a conduction bath. The "impurity" can be any
 set of orbitals, on one or several atoms. To be more specific, the Hamiltonian
 of the problem has the form:

@@ -18,6 +18,7 @@ install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html/ COMPONENT documentation DEST
  PATTERN "*.js"
  PATTERN "_*"
  PATTERN "*.png" 
+ PATTERN "*.jpg" 
  PATTERN "*.gif" 
  PATTERN "*.xsl" 
  PATTERN "*.css"

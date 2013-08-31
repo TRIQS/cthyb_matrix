@@ -4,12 +4,14 @@
 Installation
 ============
 
-The continuous-time hybridization-expansion matrix solver is based on the TRIQS library. Therefore
-the TRIQS library must be installed on your system (see `<http://ipht.cea.fr/triqs>`_ for details about
-TRIQS and on its installation). In the following, we will suppose that TRIQS is installed in
-the ``path_to_triqs`` directory.
 
-Installation steps
+Prerequisite
+-------------------
+
+#. The :ref:`TRIQS <triqslibs:welcome>` toolkit (see :ref:`TRIQS installation instruction <triqslibs:installation>`).
+   In the following, we will suppose that it is installed in the ``path_to_triqs`` directory.
+
+Installation steps 
 ------------------
 
 #. Download the sources of the solver from github:: 

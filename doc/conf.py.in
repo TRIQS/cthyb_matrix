@@ -4,6 +4,7 @@
 
 extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.mathjax',
+              'sphinx.ext.intersphinx',
               'matplotlib.sphinxext.plot_directive']
 
 source_suffix = '.rst'
@@ -25,5 +26,11 @@ html_context = {'header_title': 'cthyb',
                                  ['Issues', 'issues'],
                                  ['About CTHYB', 'about']]}
 
+templates_path = ['@TRIQS_THEMES_PATH@/../export/_templates']
+html_sidebars = {'index': ['sideb_appli.html', 'searchbox.html']}
+html_static_path = ['@TRIQS_THEMES_PATH@/../export/_static']
 
 htmlhelp_basename = 'TRIQSHybMatrixdoc'
+
+intersphinx_mapping = {'python': ('http://docs.python.org/2.7', None), 'triqslibs': ('@TRIQS_THEMES_PATH@/../../doc/triqs',None)}
+
