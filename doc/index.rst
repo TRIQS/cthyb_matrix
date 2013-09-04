@@ -1,4 +1,6 @@
 
+.. _welcome:
+
 The hybridization-expansion matrix solver
 =========================================
 

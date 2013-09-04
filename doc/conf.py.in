@@ -11,10 +11,11 @@ source_suffix = '.rst'
 
 project = u'TRIQS Hybridization Expansion Matrix Solver'
 copyright = u'2011-2013, M. Ferrero, O. Parcollet'
-version = '1.0'
-release = '1.0.0'
+version = '@CTHYB_MATRIX_VERSION@'
+release = '@CTHYB_MATRIX_RELEASE@'
 
 mathjax_path = "@TRIQS_MATHJAX_PATH@/MathJax.js?config=default"
+templates_path = ['@CMAKE_SOURCE_DIR@/doc/_templates']
 
 html_theme = 'triqs'
 html_theme_path = ['@TRIQS_THEMES_PATH@']
@@ -25,12 +26,9 @@ html_context = {'header_title': 'cthyb',
                                  ['Documentation', 'documentation'],
                                  ['Issues', 'issues'],
                                  ['About CTHYB', 'about']]}
-
-templates_path = ['@TRIQS_THEMES_PATH@/../export/_templates']
-html_sidebars = {'index': ['sideb_appli.html', 'searchbox.html']}
-html_static_path = ['@TRIQS_THEMES_PATH@/../export/_static']
+html_static_path = ['@CMAKE_SOURCE_DIR@/doc/_static']
+html_sidebars = {'index': ['sideb.html', 'searchbox.html']}
 
 htmlhelp_basename = 'TRIQSHybMatrixdoc'
 
-intersphinx_mapping = {'python': ('http://docs.python.org/2.7', None), 'triqslibs': ('@TRIQS_THEMES_PATH@/../../doc/triqs',None)}
-
+intersphinx_mapping = {'python': ('http://docs.python.org/2.7', None), 'triqslibs': ('http://ipht.cea.fr/triqs', None)}

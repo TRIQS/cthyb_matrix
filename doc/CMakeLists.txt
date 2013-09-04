@@ -25,5 +25,6 @@ install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html/ COMPONENT documentation DEST
  PATTERN "*.pdf"
  PATTERN "*.py"
  PATTERN "*.txt"
+ PATTERN "*.inv"
  PATTERN "*.bib"
  )

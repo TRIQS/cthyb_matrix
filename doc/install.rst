@@ -8,7 +8,7 @@ Installation
 Prerequisite
 -------------------
 
-#. The :ref:`TRIQS <triqslibs:welcome>` toolkit (see :ref:`TRIQS installation instruction <triqslibs:installation>`).
+#. The :ref:`TRIQS <triqslibs:welcome>` toolbox (see :ref:`TRIQS installation instruction <triqslibs:installation>`).
    In the following, we will suppose that it is installed in the ``path_to_triqs`` directory.
 
 Installation steps 
@@ -36,8 +36,8 @@ Version compatibility
 --------------------- 
  
 Be careful that the version of the TRIQS library and of the solver must be 
-compatible (more information on the `TRIQS website 
-<http://ipht.cea.fr/triqs/versions.html>`_). If you want to use a version of 
+compatible (more information on the :ref:`TRIQS website <triqslibs:versions>`).
+If you want to use a version of 
 the solver that is not the latest one, go into the directory with the sources 
 and look at all available versions:: 
  

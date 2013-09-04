@@ -24,7 +24,7 @@ Here is a complete computation of a single-site DMFT on a Bethe lattice
 
 .. literalinclude:: single_site_bethe.py
 
-The solvers are discussed in :ref:`solvers`, so let us just emphasize
+The solver has been discussed above, so let us just emphasize
 that the DMFT loop itself is `polymorphic`: it would run as well with
 any other solver, we only use the `G0` and `G` functions present in any solver
 (see :ref:`solver_concept`). Even if here the self-consistency condition is very simple,
