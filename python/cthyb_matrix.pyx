@@ -24,14 +24,14 @@ class Solver:
     Hybridization-expansion QMC solver.
     """
 
-    def __init__(self, beta, gf_struct, n_matsubara=1025):
+    def __init__(self, beta, gf_struct, n_w=1025):
         """
         :param beta: The inverse temperature
         :param gf_struct: The structure of the Green's functions. It must be a list of tuples,
                          each representing a block of the Green's function. The tuples have two
                          elements, the name of the block and a list of indices. For example:
                          [ ('up', [1,2,3]),  ('down', [1,2,3]) ].
-        :param n_matsubara: (Optional, default = 1025) How many Matsubara frequencies
+        :param n_w: (Optional, default = 1025) How many Matsubara frequencies
                                         are used for the Green's functions.
         """
 
@@ -42,7 +42,7 @@ class Solver:
 
         # Green's functions in frequencies
         a_list = [a for a,al in self.gf_struct]
-        glist = [ GfImFreq(indices = al, beta = self.beta, n_points = n_matsubara) for a,al in self.gf_struct]
+        glist = [ GfImFreq(indices = al, beta = self.beta, n_points = n_w) for a,al in self.gf_struct]
         self.G0 = BlockGf(name_list = a_list, block_list = glist, make_copies=False, name="G0")
         self.G = BlockGf(name_block_generator = self.G0, make_copies=True, name="G")
         self.F = BlockGf(name_block_generator = self.G0, make_copies=True, name="F")
@@ -74,8 +74,8 @@ class Solver:
         self.time_accumulation = params.pop("time_accumulation", False)
         self.fit_start = params.pop("fit_start", 50)
         self.fit_stop = params.pop("fit_stop", 100)
-        self.n_time_slices_delta = params.pop("n_time_slices_delta", 10000)
-        self.n_time_slices_gtau = params.pop("n_time_slices_gtau", 10000)
+        self.n_time_slices_delta = params.pop("n_tau_delta", 10000)
+        self.n_time_slices_gtau = params.pop("n_tau_g", 10000)
         self.n_max_matrix = params.pop("n_max_matrix", 100)
         self.global_moves = params.pop("global_moves", [])
         self.prob_insert_remove = params.pop("prob_insert_remove", 1.0)

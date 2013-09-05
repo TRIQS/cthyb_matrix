@@ -6,7 +6,7 @@ class SolverOld(Solver):
 
     def __init__(self, Beta, GFstruct, N_Matsubara_Frequencies=1025, **param):
 
-        Solver.__init__(self, beta=Beta, gf_struct=GFstruct, n_matsubara=N_Matsubara_Frequencies)
+        Solver.__init__(self, beta=Beta, gf_struct=GFstruct, n_w=N_Matsubara_Frequencies)
         self.params = param
         self.gen_keys = copy.deepcopy(self.__dict__)
 
@@ -56,8 +56,8 @@ class SolverOld(Solver):
         ('N_Warmup_Cycles', 'n_warmup_cycles'),
         ('N_Frequencies_Accumulated', 'fit_stop'),
         ('Fitting_Frequency_Start', 'fit_start'),
-        ('N_Time_Slices_Delta', 'n_time_slices_delta'),
-        ('N_Time_Slices_Gtau', 'n_time_slices_gtau'),
+        ('N_Time_Slices_Delta', 'n_ttau_delta'),
+        ('N_Time_Slices_Gtau', 'n_tau_g'),
         ('Nmax_Matrix', 'n_max_matrix'),
         ('Global_Moves', 'global_moves'),
         ('Use_Segment_Picture', 'use_segment_picture'),
