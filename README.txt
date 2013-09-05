@@ -5,12 +5,12 @@ Copyright (C) 2011-2013, M. Ferrero and O. Parcollet
 1. Documentation
 
 You will find the documentation of this application under
-<http://ipht.cea.fr/triqs/cthyb_matrix/>.
+<http://ipht.cea.fr/triqs/applications/cthyb_matrix/>.
 
 2. Installation
 
 The installation steps are described in
-<http://ipht.cea.fr/triqs/cthyb_matrix/install.html>
+<http://ipht.cea.fr/triqs/applications/cthyb_matrix/install.html>
 
 3. Version
 
