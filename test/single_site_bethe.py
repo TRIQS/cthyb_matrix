@@ -66,5 +66,5 @@ S.solve(H_local = U * N('up',1) * N('down',1),
 # Save into the shelve
 Results = HDFArchive("single_site_bethe.output.h5",'w')
 Results["G"] = S.G
-Results["Gl"] = S.G_Legendre
+Results["Gl"] = S.G_legendre
 

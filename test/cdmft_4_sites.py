@@ -85,4 +85,4 @@ S.solve(n_cycles = 3000, n_warmup_cycles = 0, length_cycle = 10, n_legendre = 30
 if mpi.is_master_node():
   Results = HDFArchive("cdmft_4_sites.output.h5", 'w')
   Results["G"] = S.G
-  Results["Gl"] = S.G_Legendre
+  Results["Gl"] = S.G_legendre

@@ -255,9 +255,9 @@ class Solver:
         for (i,gt) in self.Delta_tau : gt.set_from_inverse_fourier(Delta[i])
         mpi.report("Inv Fourier done")
         if (self.legendre_accumulation):
-            self.G_Legendre = BlockGf(name_block_generator = [ (n,GfLegendre(indices =g.indices, beta =g.mesh.beta, n_points =self.n_legendre) )   for n,g in self.G], make_copies=False, name='Gl')
+            self.G_legendre = BlockGf(name_block_generator = [ (n,GfLegendre(indices =g.indices, beta =g.mesh.beta, n_points =self.n_legendre) )   for n,g in self.G], make_copies=False, name='Gl')
         else:
-            self.G_Legendre = BlockGf(name_block_generator = [ (n,GfLegendre(indices =[1], beta =g.mesh.beta, n_points =1) ) for n,g in self.G], make_copies=False, name='Gl') # G_Legendre must not be empty but is not needed in this case. So I make it as small as possible.
+            self.G_legendre = BlockGf(name_block_generator = [ (n,GfLegendre(indices =[1], beta =g.mesh.beta, n_points =1) ) for n,g in self.G], make_copies=False, name='Gl') # G_legendre must not be empty but is not needed in this case. So I make it as small as possible.
 
         # Starting the C++ code
         self.Sigma_old <<= self.Sigma
@@ -270,7 +270,7 @@ class Solver:
                  as_gf_block_imtime(self.F_tau),
                  as_gf_block_imtime(self.Delta_tau),
                  as_gf_block_imtime(self.measured_time_correlators_results),
-                 as_gf_block_legendre(self.G_Legendre)).solve()
+                 as_gf_block_legendre(self.G_legendre)).solve()
 
         # Compute G on Matsubara axis possibly fitting the tail
         if self.legendre_accumulation:
@@ -279,8 +279,8 @@ class Solver:
             for i,m in enumerate (g.indicesL):
               for j,n in enumerate (g.indicesR):
                 if m==n: identity[i,j]=1
-            self.G_Legendre[s].enforce_discontinuity(identity)
-            g <<= LegendreToMatsubara(self.G_Legendre[s])
+            self.G_legendre[s].enforce_discontinuity(identity)
+            g <<= LegendreToMatsubara(self.G_legendre[s])
         else:
           if (self.time_accumulation):
             for name, g in self.G_tau:
