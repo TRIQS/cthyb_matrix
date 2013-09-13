@@ -52,27 +52,19 @@ These lines import the classes to manipulate Green's functions, fermionic
 operators, and the CTQMC solver.
 
 .. literalinclude:: aim.py
-  :lines: 5-6
+  :lines: 6-7
 
 This just sets the parameters of the problem.
 
 .. literalinclude:: aim.py
-  :lines: 8-25
+  :lines: 9-11
 
 This is the construction of the solver object. The class is described
 in more detail in the section: :ref:`ctqmc_ref`. Basically, the constructor
-of the solver needs a set of keyword arguments, essentially:
+of the solver needs two keywords:
 
-  - ``Beta``:      The inverse temperature
-  - ``GFstruct``:  A tuple of lists that describe the block structure of the Green's function
-  - ``H_Local``:      The local Hamiltonian written with operators. See the section: :ref:`operators`
-  - ``Quantum_Numbers``:   A dict of operators describing the quantum numbers
-  - ``N_Cycles``: The number of Monte Carlo cycles
-  - ``Length_Cycle``: The number Monte Carlo moves in a cycle
-  - ``Random_Generator_Name``: The name of the random number generator
-  - ``Use_Segment_Picture``: Use the segment picture
-  - ``Measured_Operators``: A dictionary of operator that will be averaged
-  - ``Global_Moves``: A tuple of lists that describe the global moves to be used
+- ``beta``: The inverse temperature
+- ``gf_struct``: A tuple of lists that describe the block structure of the Green's function
 
 After the solver is constructed it needs to know what the non-interacting Green's function
 of the impurity is. From this information, the solver will deduce the hybridization function
@@ -80,15 +72,25 @@ which is used in the algorithm. The non-interacting Green's function must be put
 class member ``S.G0``:
 
 .. literalinclude:: aim.py
-  :lines: 27-29
+  :lines: 13-15
 
 At this stage, everything is ready for the solver and we just run it calling its member
-function ``Solve``:
+function ``solve``:
 
 .. literalinclude:: aim.py
-  :lines: 31-32
+  :lines: 17-30
+
+The run is controlled by the parameters of ``solve``:
+
+- ``H_local``:      The local Hamiltonian written with operators. See the section: :ref:`operators`
+- ``quantum_numbers``:   A dict of operators describing the quantum numbers
+- ``n_cycles``: The number of Monte Carlo cycles
+- ``length_cycle``: The number Monte Carlo moves in a cycle
+- ``random_name``: The name of the random number generator
+- ``use_segment_picture``: Use the segment picture
+- ``measured_operators``: A dictionary of operator that will be averaged
 
 When the solver has finished, it puts the result for the interacting Green's function in its
 member ``S.G``. If the user asked for an operator to be averaged, the average will be put
-in ``S.Measured_Operators_Results[operatorname]``. The last lines of the script save the Green's
+in ``S.measured_operators_results[operatorname]``. The last lines of the script save the Green's
 function and the average of :math:`n_\uparrow+n_\downarrow` in the HDF archive.

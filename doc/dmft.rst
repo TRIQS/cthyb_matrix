@@ -20,9 +20,9 @@ Plain-vanilla DMFT: the Bethe lattice
 ------------------------------------------
 
 Here is a complete computation of a single-site DMFT on a Bethe lattice
-:download:`[file] <single_site_bethe.py>`:
+:download:`[file] <dmft.py>`:
 
-.. literalinclude:: single_site_bethe.py
+.. literalinclude:: dmft.py
 
 The solver has been discussed above, so let us just emphasize
 that the DMFT loop itself is `polymorphic`: it would run as well with
@@ -33,6 +33,6 @@ this property would still be true in more complex cases.
 This run generates a file :file:`single_site_bethe.h5` containing the Green's function
 at every iteration. You can plot them to see the convergence on the solver:
 
-.. plot:: plot.py
+.. plot:: dmft_plot.py
   :include-source:
   :scale: 70
