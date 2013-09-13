@@ -51,9 +51,18 @@ public :
     }
   }
 
+  Global_Move(Global_Move const & gm):
+    name(gm.name), Config(gm.Config), mapping(gm.mapping),
+    dets_save(Config.Na,(Configuration::DET_TYPE*)NULL)  {
+    for (int a= 0; a<Config.Na; ++a) {
+      Configuration::DET_TYPE * d = Config.dets[a];
+      dets_save[a] = new Configuration::DET_TYPE(*(Config.Delta_tau_proxy[a]), d->size());
+    }
+  }
+
   //---------------------
 
-  ~Global_Move() { for (int a= 0; a<Config.Na; ++a) delete dets_save[a];}
+  ~Global_Move() { for (int a= 0; a<Config.Na; ++a) delete dets_save[a]; }
 
   //---------------------
 
