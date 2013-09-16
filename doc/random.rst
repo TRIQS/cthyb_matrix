@@ -5,20 +5,10 @@ Random number generators
 =========================
 
 It is possible (and highly recommended!) to use different random number generators with the CTQMC solver.
-Here is a list of the names of available generators:
+A list of available random generators can be obtained with::
 
-* ``mt19937``
-* ``mt11213b``
-* ``lagged_fibonacci607``
-* ``lagged_fibonacci1279``
-* ``lagged_fibonacci2281``
-* ``lagged_fibonacci3217``
-* ``lagged_fibonacci4423``
-* ``lagged_fibonacci9689``
-* ``lagged_fibonacci19937``
-* ``lagged_fibonacci23209``
-* ``lagged_fibonacci44497``
-* ``ranlux3``
+  from pytriqs.random import *
+  print available_generator_names()
 
 The names in this list can then be used to set the ``random_name`` keyword argument
 in the ``solve`` method of the CTQMC solver. Here is an example where the same run is done
