@@ -92,7 +92,7 @@ Examples
 * If we consider a two-band Hubbard model with a fully SU(2) Hund's exchange::
 
     Ntot = N('up',1) + N('down',1) + N('up',2) + N('down',2)
-    Sz = N('up',1) + N('down',2) - N('down',1) - N('down',2)
+    Sz = N('up',1) + N('up',2) - N('down',1) - N('down',2)
     quantum_numbers = { 'Total N' : Ntot, 'Total spin along z' : Sz }
 
 Step 4 - can I use the segment picture?
@@ -191,9 +191,9 @@ archive, you can then plot it:
   :include-source:
   :scale: 70
 
-From this plot you see that for coefficient :math:`l > 30`, the value of the
+From this plot you see that for :math:`l > 30`, the value of the
 coefficient is of the order of the statistical noise. There is therefore no
-information in the coefficients :math:`l > 30` and one can set
-``n_legendre = 30`` for the following runs. Of course, if you will use a
-larger statistics or a larger number of cores, you might have to reajust this
+information in the coefficients with :math:`l > 30` and one can set
+``n_legendre = 30`` for the following runs. Of course, if you will use
+more statistics or a larger number of cores, you may have to reajust this
 value.

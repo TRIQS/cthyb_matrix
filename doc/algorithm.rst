@@ -18,7 +18,7 @@ representation) at different imaginary times:
 
 The algorithm samples new configurations by inserting/removing pairs of
 operators, or by moving operators in the configuration. Note that it is a
-finite-temperature algorithm so that the :math:`\tau \in [0,\beta]`, where
+finite-temperature algorithm, and so :math:`\tau \in [0,\beta]`, where
 :math:`\beta` is the inverse temperature. The Monte Carlo weight of a
 configuration is essentially the product of the trace :math:`\mathrm{Tr} \,
 \mathcal{C}` and the determinant of a matrix whose elements are the
@@ -27,20 +27,20 @@ hybridization functions :math:`\Delta_{\alpha_i \alpha_j'} (\tau_i - \tau_j')`.
 The main inputs of the solver are the hybridization functions
 :math:`\Delta(i\omega_n)` and the local Hamiltonian
 :math:`\mathcal{H}_\mathrm{loc}` on the impurity. The solver then computes the
-Green's function on the imaginary-time interval :math:`[0,\beta]`.  This is done on a
-basis of Legendre polynomials, as described in Ref. [#legendre]_.  Note that
-our implementation of the algorithm uses a *matrix* representation [#ctqmc3]_ of the
-operators :math:`d^\dagger_{\alpha}`. This allows to use any local Hamiltonian
-:math:`\mathcal{H}_\mathrm{loc}` in the algorithm.
+Green's function on the imaginary-time interval :math:`[0,\beta]`.  This is 
+done on a basis of Legendre polynomials, as described in Ref. [#legendre]_. 
+Note that our implementation of the algorithm uses a *matrix* representation
+[#ctqmc3]_ of the operators :math:`d^\dagger_{\alpha}`. This allows the use 
+of any local Hamiltonian :math:`\mathcal{H}_\mathrm{loc}` in the algorithm.
 
 There is a special case, in which the operators are just numbers. This
 happens when :math:`\mathcal{H}_\mathrm{loc}` commutes with every number
 operator of the problem :math:`[ \mathcal{H}_\mathrm{loc}, n_\alpha]=0, \,
 \forall \alpha`. In this situation, only a restricted number of configurations
 can exist (those where two construction (destruction) operators don't lie
-next to each other). This is called the *segment picture* and the code can
-be optimized. There is an input flag to specify if the segment picture should
-be used.
+next to each other). In this so-called *segment picture*, the code can
+be further optimized. There is an input flag to specify if the segment 
+picture should be used.
 
 
 Journal references
