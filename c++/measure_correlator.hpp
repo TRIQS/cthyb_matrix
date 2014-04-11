@@ -41,7 +41,7 @@ class Measure_OpCorr : public Measure_acc_sign<double> {
   typedef Measure_acc_sign<double> BaseType;
 public :   
   Measure_OpCorr(std::string MeasureName_, std::string opName_, Configuration & Config_, triqs::gfs::gf_view<triqs::gfs::imtime> &Op_res_, int N_timeslices_):
-    BaseType(),  opName(opName_), Config(Config_),  N_timeslices(N_timeslices_),deltatau(Config.Beta/N_timeslices_),Op_res(Op_res_),Op_res_bin(Op_res), 
+    BaseType(),  opName(opName_), Config(Config_),  N_timeslices(N_timeslices_),deltatau(Config.Beta/N_timeslices_),Op_res(Op_res_),Op_res_bin(Op_res_), 
      name(opName)  {}
  
   const std::string name;
