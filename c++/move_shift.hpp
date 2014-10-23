@@ -51,12 +51,6 @@ public:
   //----------------
   
   mc_weight_type attempt() {
-    
-#ifdef DEBUG
-    std::cout << "I AM IN attempt for Move" << std::endl;
-    std::cout << "CONFIG BEFORE: " << Config.DT << std::endl;
-    for (int a = 0; a < Config.Na; ++a) print_det(Config.dets[a]);
-#endif
 
     // find an operator (anyone) to be moved.
     // to do this, I go over the DT trace
@@ -69,9 +63,17 @@ public:
     Configuration::OP_REF oldOpref = Config.DT.OpRef_begin();
     for (int i=0; i<N; ++i, ++oldOpref) {}
     int a = Config.info[oldOpref->Op->Number].a;
+    auto oldalpha = Config.info[oldOpref->Op->Number].alpha;
     int Nalpha = Config.COps[a].size();
     bool isdagger = Config.info[oldOpref->Op->Number].dagger;
     double oldtau = oldOpref->tau;
+    
+#ifdef DEBUG
+  std::cerr << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" << std::endl;
+  std::cerr << "* Attempt for move_shift_operator (block " << a << ")" << std::endl;
+  std::cerr << "* Configuration before:" << std::endl;
+  std::cerr << Config.DT;
+#endif
 
     // chose the new alpha (this is done here for compatibility)
     int newalpha = Random(Nalpha);
@@ -117,6 +119,18 @@ public:
     const Hloc::Operator * newOp;
     newOp = (isdagger ? Config.CdagOps[a][newalpha] : Config.COps[a][newalpha]);
 
+#ifdef DEBUG
+  std::cerr << "* Proposing to shift:" << std::endl;
+  std::cerr << (isdagger ? "Cdag" : "C");
+  std::cerr << "(" << a << "," << oldalpha << ")";
+  std::cerr << " tau = " << oldtau << std::endl;
+  std::cerr << " to " << std::endl;
+  std::cerr << (isdagger ? "Cdag" : "C");
+  std::cerr << "(" << a << "," << newalpha << ")";
+  std::cerr << " tau = " << newtau << std::endl;
+#endif
+
+
     // remove oldOpref and insert newOp in the Trace
     bool ok;
     Configuration::OP_REF Op;
@@ -131,15 +145,17 @@ public:
     if (oldtau - newtau > tR) roll_matrix = (isdagger ? Configuration::DET_TYPE::Up : Configuration::DET_TYPE::Left);
 
     // acceptance probability
-    mc_weight_type p = Config.DT.ratioNewTrace_OldTrace() * (isdagger ? det->try_change_row(num-1,Op) : det->try_change_col(num-1,Op));
+    //auto det_ratio = (isdagger ? det->try_change_row(num-1,Op) : det->try_change_col(num-1,Op));
+    auto trace_ratio = Config.DT.ratioNewTrace_OldTrace();
+    //mc_weight_type p = Config.DT.ratioNewTrace_OldTrace() * (isdagger ? det->try_change_row(num-1,Op) : det->try_change_col(num-1,Op));
+    auto det_ratio = (isdagger ? det->try_change_row(num-1,Op) : det->try_change_col(num-1,Op));
+    //auto det_ratio = 1;
+    mc_weight_type p = det_ratio * trace_ratio;
 
 #ifdef DEBUG
-    std::cout << "oldtau, tR, tL, newtau: " << oldtau << " " << tR << " " << tL << " " << newtau << endl;
-    std::cout << "Trace Ratio: " << Config.DT.ratioNewTrace_OldTrace() << std::endl;
-    std::cout << "Det Ratio: " << p/mc_weight_type(Config.DT.ratioNewTrace_OldTrace()) << std::endl;
-    std::cout << "Rate: " << p << std::endl;
-    std::cout << "CONFIG AFTER: " << Config.DT << std::endl;
-    for (int a = 0; a < Config.Na; ++a) print_det(Config.dets[a]);
+  std::cerr << "Trace ratio: " << trace_ratio << '\t';
+  std::cerr << "Det ratio: " << det_ratio << '\t';
+  std::cerr << "Weight: " << p.real() << std::endl;
 #endif
 
     return p;
@@ -152,9 +168,8 @@ public:
     det->complete_operation(); 
 
 #ifdef DEBUG
-    std::cout << "CONFIG ACCEPT: " << Config.DT << std::endl;
-    std::cout << "ROLL MATRIX: " << roll_matrix << std::endl;
-    for (int a = 0; a < Config.Na; ++a) print_det(Config.dets[a]);
+  std::cerr << "* Configuration after accept:" << std::endl;
+  std::cerr << Config.DT;
 #endif
 
     Config.update_Sign();
@@ -167,8 +182,8 @@ public:
     Config.DT.undo_insert_and_remove_One_Operator();
 
 #ifdef DEBUG
-    std::cout << "CONFIG REJECT: " << Config.DT << std::endl;
-    for (int a = 0; a < Config.Na; ++a) print_det(Config.dets[a]);
+  std::cerr << "* Configuration after reject:" << std::endl;
+  std::cerr << Config.DT;
 #endif
 
   }

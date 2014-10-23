@@ -65,17 +65,32 @@ public :
 
   mc_weight_type attempt() {
 #ifdef DEBUG
-   std::cout << "I AM IN attempt for Insert_Cdag_C_Delta" << std::endl;
-   std::cout << "CONFIG BEFORE: " << Config.DT << std::endl;
-   // for (int a = 0; a<Config.Na; ++a) print_det(Config.dets[a]);
+  std::cerr << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" << std::endl;
+  std::cerr << "* Attempt for move_insert_c_cdag (block " << a_level << ")" << std::endl;
+  std::cerr << "* Configuration before:" << std::endl;
+  std::cerr << Config.DT;
 #endif
    // Pick up the value of alpha and choose the operators
+   int alpha1 = Random(Nalpha);
+   int alpha2 = Random(Nalpha);
+
+//   const Hloc::Operator 
+//    & Op1(*Config.CdagOps[a_level][Random(Nalpha)]),
+//    & Op2(*Config.COps[a_level][Random(Nalpha)]);
    const Hloc::Operator 
-    & Op1(*Config.CdagOps[a_level][Random(Nalpha)]),
-    & Op2(*Config.COps[a_level][Random(Nalpha)]);
+    & Op1(*Config.CdagOps[a_level][alpha1]),
+    & Op2(*Config.COps[a_level][alpha2]);
 
    // Choice of times.
    double tau1 = Random(Config.Beta), tau2 = Random(Config.Beta);
+
+#ifdef DEBUG
+  std::cerr << "* Proposing to insert:" << std::endl;
+  std::cerr << "Cdag(" << a_level << "," << alpha1 << ")";
+  std::cerr << " at " << tau1 << std::endl;
+  std::cerr << "C(" << a_level << "," << alpha2 << ")";
+  std::cerr << " at " << tau2 << std::endl;
+#endif
 
    // record the length of the kinks
    if (Config.RecordStatisticConfigurations) {
@@ -101,15 +116,26 @@ public :
    for (Configuration::DET_TYPE::C_iterator p= det->C_begin(); 
      (p != det->C_end()) &&  (p->tau > tau2) ; ++p, ++numC) {}
 
+//#ifdef DEBUG
+//  std::cerr << "old Trace: " << Config.DT.OldTrace << std::endl;
+//  std::cerr << "current Trace: " << Config.DT.CurrentTrace << std::endl;
+//#endif
+
    // acceptance probability
-   mc_weight_type p = Config.DT.ratioNewTrace_OldTrace() * det->try_insert(numCdag-1,numC-1,O1,O2);
+   auto det_ratio = det->try_insert(numCdag-1,numC-1,O1,O2);
+   //auto det_ratio = 1;
+   auto trace_ratio = Config.DT.ratioNewTrace_OldTrace();
+   //mc_weight_type p = Config.DT.ratioNewTrace_OldTrace() * det->try_insert(numCdag-1,numC-1,O1,O2);
+   //mc_weight_type p = trace_ratio * det->try_insert(numCdag-1,numC-1,O1,O2);
+   mc_weight_type p = trace_ratio * det_ratio;
+   //mc_weight_type p = Config.DT.ratioNewTrace_OldTrace() * det->try_insert(numCdag-1,numC-1,O1,O2);
    double Tratio = std::pow(2*Nalpha* Config.Beta / double(2*(det->size()+1)), 2);
 
 #ifdef DEBUG
-   std::cout << "Trace Ratio: " << Config.DT.ratioNewTrace_OldTrace() << std::endl;
-   std::cout << "p*T: " << p*Tratio << std::endl;
-   std::cout << "CONFIG AFTER: " << Config.DT << std::endl;
-   //for (int a = 0; a<Config.Na; ++a) print_det(Config.dets[a]);
+  std::cerr << "Trace ratio: " << trace_ratio << '\t';
+  std::cerr << "Det ratio: " << det_ratio << '\t';
+  std::cerr << "Prefactor: " << Tratio << '\t';
+  std::cerr << "Weight: " << (p*Tratio).real() << std::endl;
 #endif
    return p*Tratio;
   }
@@ -123,6 +149,12 @@ public :
     HISTO_Length_Kinks_Accepted << deltaTau;
    }
    Config.update_Sign();
+
+#ifdef DEBUG 
+  std::cerr << "* Configuration after accept:" << std::endl;
+  std::cerr << Config.DT;
+#endif
+
    return Config.ratioNewSign_OldSign();
   }
 
@@ -132,6 +164,12 @@ public :
    if (no_trivial_reject) { 
     Config.DT.undo_insertTwoOperators(); //nothing to be done for the det 
    }
+
+#ifdef DEBUG 
+  std::cerr << "* Configuration after reject:" << std::endl;
+  std::cerr << Config.DT;
+#endif
+
   }
 
 
@@ -167,9 +205,9 @@ class Remove_Cdag_C_Delta {
  mc_weight_type attempt() {
 
 #ifdef DEBUG
-  std::cout << "I AM IN attempt for Remove_Cdag_C_Delta" << std::endl;
-  std::cout << "CONFIG BEFORE: " << Config.DT << std::endl;
-  //for (int a = 0; a<Config.Na; ++a) print_det(Config.dets[a]);
+  std::cerr << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" << std::endl;
+  std::cerr << "* Attempt for move_remove_c_cdag (block " << a_level << ")" << std::endl;
+  std::cerr << "* Configuration before:" << std::endl << Config.DT;
 #endif
 
   // the det has to be recomputed each time, since global moves will change it
@@ -181,8 +219,14 @@ class Remove_Cdag_C_Delta {
   int numCdag = 1 + Random(Na);
   int numC = 1 + Random(Na);
   // det is in decreasing order.
-  numC    = Na - numC  + 1;
-  numCdag = Na - numCdag  + 1;
+  //numC    = Na - numC  + 1;
+  //numCdag = Na - numCdag  + 1;
+
+#ifdef DEBUG
+  std::cerr << "* Proposing to remove: ";
+  std::cerr << numCdag << "-th Cdag(" << a_level << ",...), ";
+  std::cerr << numC << "-th C(" << a_level << ",...)" << std::endl;
+#endif
 
   // Remove the operators from the traces
   // the -Na +1 is to move backward, to compare with V1 ...
@@ -190,13 +234,19 @@ class Remove_Cdag_C_Delta {
     *det->select_C( numC ));
 
   // Acceptance probability
-  mc_weight_type p = Config.DT.ratioNewTrace_OldTrace() * det->try_remove(numCdag-1,numC-1);
+  auto trace_ratio = Config.DT.ratioNewTrace_OldTrace();
+  auto det_ratio = det->try_remove(numCdag-1,numC-1);
+  //auto det_ratio = 1;
+  //mc_weight_type p = Config.DT.ratioNewTrace_OldTrace() * det->try_remove(numCdag-1,numC-1);
+  //mc_weight_type p = trace_ratio * det->try_remove(numCdag-1,numC-1);
+  mc_weight_type p = trace_ratio * det_ratio; 
   double Tratio = std::pow(2*Nalpha* Config.Beta / double(2*Na) ,2);
 
 #ifdef DEBUG
-  std::cout << "RATIO: " << Config.DT.ratioNewTrace_OldTrace() << std::endl;
-  std::cout << "CONFIG AFTER: " << Config.DT << std::endl;
-  //for (int a = 0; a<Config.Na; ++a) print_det(Config.dets[a]);
+  std::cerr << "Trace ratio: " << trace_ratio << '\t';
+  std::cerr << "Det ratio: " << det_ratio << '\t';
+  std::cerr << "Prefactor: " << Tratio << '\t';
+  std::cerr << "Weight: " << (p / Tratio).real() << std::endl;
 #endif
 
   return p/Tratio;
@@ -209,12 +259,22 @@ class Remove_Cdag_C_Delta {
   det->complete_operation(); 
   Config.update_Sign();
   return Config.ratioNewSign_OldSign();
+
+#ifdef DEBUG
+  std::cerr << "* Configuration after accept:" << std::endl;
+  std::cerr << Config.DT;
+#endif
+
  }   
 
  //----------------
 
  void reject() { 
   Config.DT.undo_removeTwoOperators(); //nothing to be done for the det 
+#ifdef DEBUG
+  std::cerr << "* Configuration after reject:" << std::endl;
+  std::cerr << Config.DT;
+#endif
  }
 
 

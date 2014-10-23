@@ -68,9 +68,9 @@ public:
   typedef typename Time_Ordered_Operator_List_TYPE::TAUTYPE TAUTYPE;
 
   const Hloc & hloc;
+  REAL_OR_COMPLEX CurrentTrace, OldTrace; //Current and old value of the trace
 protected:
   Time_Ordered_Operator_List_TYPE * OpList, * OpList_save; // list of operators.
-  REAL_OR_COMPLEX CurrentTrace, OldTrace; //Current and old value of the trace
   TraceSlice_Stack<myTraceSlice> SliceStack; // Storage of slices
   TIME_EVOLUTION  TimeEvolution; //
   const myTraceSlice * TraceSliceBoundary_ptr; // a special traceslice to handle the boundary
@@ -329,10 +329,10 @@ public:
     std::tie(tR,sliR) = tmp_slice_at_right_of(it2); // here is tmp, not R2L
     setNewTraceTo(TimeEvolution.Slice_U_Slice(sliL,tL,tR, sliR));
 
-#ifdef DEBUG
-    std::cout << "it1: " << it1->tau << " it2: " << it2->tau << std::endl;
-    std::cout << "TL: " << tL << " TR: " << tR << std::endl;
-#endif
+//#ifdef DEBUG
+//    std::cout << "it1: " << it1->tau << " it2: " << it2->tau << std::endl;
+//    std::cout << "TL: " << tL << " TR: " << tR << std::endl;
+//#endif
     
     // Now compute Delta_tau_max for the reverse insert move.
     // first get max_it
@@ -385,7 +385,7 @@ public:
       setNewTraceTo(0);
 
 #ifdef DEBUG
-    std::cout<< it1->tau<< " " << it2->tau<<" "<<has_swapped<<std::endl;
+//    std::cout<< it1->tau<< " " << it2->tau<<" "<<has_swapped<<std::endl;
     //if ((it1->data->tmp_slice)) std::cout<<"SLI1 "<<(myTraceSlice *)(it1->data->tmp_slice)<<std::endl;
     //if ((it2->data->tmp_slice)) std::cout<<"SLIC2 "<<(myTraceSlice *)(it2->data->tmp_slice)<<std::endl;
     //if (sliL) std::cout<<"SliL"<< (myTraceSlice *)(sliL)<<std::endl;
@@ -464,16 +464,16 @@ public:
     assert(lastop==None); assert (OP1!=OP2);
     it1 = OP1; it2 = OP2;
 #ifdef DEBUG
-    std::cout << "GNA1 " << it1->tau << std::endl;
-    std::cout << "GNA2 " << it2->tau << std::endl;
+//    std::cout << "GNA1 " << it1->tau << std::endl;
+//    std::cout << "GNA2 " << it2->tau << std::endl;
 #endif
     if (it1->tau > it2->tau) std::swap(it1,it2); // make sure it2 > it1
     const myTraceSlice * sliL, * sliR; TAUTYPE tR, tL;
     std::tie(tL,sliL) = L2R_slice_at_left_of (it2);
     std::tie(tR,sliR) = R2L_slice_at_right_of(it1);
 #ifdef DEBUG
-    std::cout << "it1: " << it1->tau << " it2: " << it2->tau << std::endl;
-    std::cout << "TL: " << tL << " TR: " << tR << std::endl;
+//    std::cout << "it1: " << it1->tau << " it2: " << it2->tau << std::endl;
+//    std::cout << "TL: " << tL << " TR: " << tR << std::endl;
 #endif
     it1_bis = it1;  it2_bis = it2; // I keep it1,it2 to the ops to be removed
     ++it1_bis; --it2_bis;
@@ -680,14 +680,20 @@ public:
   //---------------------------------------------------
 
   ///
+
   friend std::ostream & operator<< (std::ostream & out, const DynamicTrace & DT) {
-    out<<"-------------------------"<<std::endl;
-    out<<"Time Ordered List of Operators"<<std::endl;
-    for (OP_REF p= DT.OpList->begin(); p!=DT.OpList->end(); ++p) 
+//    out<<"-------------------------"<<std::endl;
+//    out<<"Time Ordered List of Operators"<<std::endl;
+    //for (auto p= DT.OpList->rbegin(); p!=DT.OpList->rend(); ++p)
+    for (OP_REF p= DT.OpList->begin(); p!=DT.OpList->end(); ++p)
+    //OP_REF pstart= DT.OpList->end();
+    //--pstart;
+    //for (OP_REF p=pstart; p!=DT.OpList->begin(); --p)
+      //out<<" tau = " <<p->tau <<" : " << (p->Op->dagger ? "Cdag(" : "C(") << p->Op->a << "," << p->Op->alpha << ")\n"; // add aux data if needed...
       out<<" time = "<<p->tau<<"  Operator "<<p->Op->name<<std::endl; // add aux data if needed...
-    out << "Current trace: " << REAL_OR_COMPLEX(DT.CurrentTrace) << std::endl;
-    out << "Old trace: " << REAL_OR_COMPLEX(DT.OldTrace) << std::endl;
-    out<<"-------------------------"<<std::endl;
+    //out << "Current trace: " << REAL_OR_COMPLEX(DT.CurrentTrace) << std::endl;
+    //out << "Old trace: " << REAL_OR_COMPLEX(DT.OldTrace) << std::endl;
+    //out<<"-------------------------"<<std::endl;
     return out;
   }
 

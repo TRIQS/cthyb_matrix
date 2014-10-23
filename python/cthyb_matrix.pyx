@@ -64,7 +64,7 @@ class Solver:
         self.n_warmup_cycles = params.pop("n_warmup_cycles", 1000)
         self.random_name = params.pop("random_name", "")
         self.random_seed = params.pop("random_seed", 34788+928374*mpi.rank)
-        self.verbosity = 2 if mpi.rank ==0 else 0
+        self.verbosity = 3 if mpi.rank ==0 else 0
         self.max_time = params.pop("max_time",-1)
 
         # Other control parameters

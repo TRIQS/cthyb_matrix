@@ -169,7 +169,7 @@ public :
    }
 #ifdef DEBUG
    std::cout << "CONFIG ACCEPT: " << Config.DT << std::endl;
-   for (int a = 0; a<Config.Na; ++a) print_det(Config.dets[a]);
+   //for (int a = 0; a<Config.Na; ++a) print_det(Config.dets[a]);
 #endif
    Config.update_Sign();
    return Config.ratioNewSign_OldSign();
@@ -221,7 +221,7 @@ class Remove_Cdag_C_Delta_SegmentPicture  {
 #ifdef DEBUG
   std::cout << "I AM IN attempt for Remove_Cdag_C_Delta_SegmentPicture" << std::endl;
   std::cout << "CONFIG BEFORE: " << Config.DT << std::endl;
-  for (int a = 0; a<Config.Na; ++a) print_det(Config.dets[a]);
+  //for (int a = 0; a<Config.Na; ++a) print_det(Config.dets[a]);
 #endif
 
   // the det pointer has to be recomputed each time, since global moves will change it
@@ -254,8 +254,8 @@ class Remove_Cdag_C_Delta_SegmentPicture  {
   int numC =    (Cisfirst ? n1: n2);
   int numCdag = (Cisfirst ? n2: n1);
 #ifdef DEBUG
-  cout<<" Cfirst n n1 n2 "<< Cisfirst<< "  "<<n<< "  "<< n1 <<  "  "<< n2 <<endl;
-  cout<<numC<< "  "<<numCdag <<endl;
+  std::cout<<" Cfirst n n1 n2 "<< Cisfirst<< "  "<<n<< "  "<< n1 <<  "  "<< n2 <<std::endl;
+  std::cout<<numC<< "  "<<numCdag <<std::endl;
 #endif
 
   // take an iterator on the couple C,Cdag
@@ -291,7 +291,7 @@ class Remove_Cdag_C_Delta_SegmentPicture  {
   // (Na term : because if we have only 1 couple of C Cdagger, n = 0 and 1 will lead to the same couple
   // and this is the only case like this.
 #ifdef DEBUG
-  cout<< " length_max "<<length_max<<endl;
+  std::cout<< " length_max "<<length_max<<std::endl;
   std::cout << "RATIO: " << Config.DT.ratioNewTrace_OldTrace() << std::endl;
   std::cout << "CONFIG AFTER: " << Config.DT << std::endl;
 #endif
@@ -305,7 +305,7 @@ mc_weight_type accept() {
  det->complete_operation(); 
 #ifdef DEBUG
  std::cout << "CONFIG ACCEPT: " << Config.DT << std::endl;
- for (int a = 0; a<Config.Na; ++a) print_det(Config.dets[a]);
+ // for (int a = 0; a<Config.Na; ++a) print_det(Config.dets[a]);
 #endif
  Config.update_Sign();
  return Config.ratioNewSign_OldSign();

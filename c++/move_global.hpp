@@ -121,8 +121,8 @@ public :
     double detratio =  (std::isfinite((r1)) ? (r1) : 0); //+ I* (std::isfinite(imag(r1)) ? imag(r1) : 0);
 
 #ifdef DEBUG
-    cout<<"About to print"<<endl;
-    std::cout << " trace RATIO: " << Config.DT.ratioNewTrace_OldTrace() << endl<<" det ratio"<<detratio << std::endl;
+    std::cout<<"About to print"<<std::endl;
+    std::cout << " trace RATIO: " << Config.DT.ratioNewTrace_OldTrace() << std::endl<<" det ratio"<<detratio << std::endl;
     std::cout << "CONFIG AFTER: " << Config.DT << std::endl;
 #endif
 

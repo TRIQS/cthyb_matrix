@@ -97,6 +97,8 @@ ctqmc_hyb::ctqmc_hyb(boost::python::object p, Hloc * hloc,
   else {  
    AllInserts.add(Insert_Cdag_C_Delta ( a, Config, Histograms, QMC.rng()), make_string("Insert",a), 1.0);
    AllRemoves.add(Remove_Cdag_C_Delta ( a, Config, QMC.rng()), make_string("Remove",a), 1.0);
+// QMC.add_move(Insert_Cdag_C_Delta ( a, Config, Histograms, QMC.rng()), make_string("Insert",a), 1.0);
+// QMC.add_move(Remove_Cdag_C_Delta ( a, Config, QMC.rng()), make_string("Remove",a), 1.0);
   }
  }
 
