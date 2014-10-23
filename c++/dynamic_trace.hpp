@@ -86,8 +86,8 @@ public:
     SliceStack(H, 100), TimeEvolution(H),
     it1(OpList->begin()), it2(OpList->begin()), it1_bis(it1), it2_bis(it2) {
     lastop = None;
-    CurrentTrace = 1;//H.PartitionFunction(tmax-tmin);
-    OldTrace = 1;//H.PartitionFunction(tmax-tmin);
+    CurrentTrace = H.PartitionFunction(tmax-tmin);
+    OldTrace = H.PartitionFunction(tmax-tmin);
     TraceSliceBoundary_ptr = &SliceStack.TraceSliceBoundary;
   }
 
